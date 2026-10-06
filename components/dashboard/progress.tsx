@@ -8,7 +8,7 @@ import {
   Sparkles,
   LockKeyhole,
 } from "lucide-react";
-import { subjects, achievements } from "@/data/mockData";
+import { achievements } from "@/data/mockData";
 import {
   SectionHeading,
   Progress,
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/primitives";
 import { useStudy } from "./study-provider";
 export function ProgressOverview() {
+  const { activeSubjects: subjects } = useStudy();
   return (
     <section className="panel learning-progress">
       <SectionHeading title="Learning progress">

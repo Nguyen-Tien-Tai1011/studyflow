@@ -18,6 +18,10 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/ui/primitives";
 import { StudyProvider } from "@/components/dashboard/study-provider";
+import {
+  ExportStudyData,
+  StorageNotice,
+} from "@/components/dashboard/storage-controls";
 const nav = [
   { label: "Dashboard", href: "/", icon: LayoutDashboard },
   { label: "My Subjects", href: "/subjects", icon: BookOpen },
@@ -149,6 +153,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href="/welcome" onClick={() => setPanel("")}>
                   About StudyFlow
                 </Link>
+                <ExportStudyData />
               </>
             ) : (
               <>
@@ -168,6 +173,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
       </header>
       <main id="main" className="app-main">
+        <StorageNotice />
         {children}
       </main>
       <footer className="app-footer">

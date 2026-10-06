@@ -9,19 +9,31 @@ import {
   Play,
   Plus,
   Sparkles,
+  Trash2,
+  Undo2,
 } from "lucide-react";
 import { useState } from "react";
 import { useStudy } from "./study-provider";
-import { subjects, initialSessions } from "@/data/mockData";
+import { initialSessions } from "@/data/mockData";
 import { duration, localDate } from "@/utils/format";
 import {
   Progress,
   SectionHeading,
   SubjectIcon,
 } from "@/components/ui/primitives";
+import { SubjectSelector } from "./subject-selector";
 import { StudyTimer } from "./study-timer";
 export function Overview() {
-  const { state, ready, toggleTask, selectStudy } = useStudy();
+  const {
+    state,
+    subjects,
+    ready,
+    toggleTask,
+    selectStudy,
+    removeTask,
+    undoRemoveTask,
+    lastRemovedTask,
+  } = useStudy();
   const [adding, setAdding] = useState(false);
   const todayTasks = state.tasks.filter(
     (t) => t.due === "today" || t.due === (ready ? localDate() : "2026-10-05"),
@@ -174,6 +186,18 @@ export function Overview() {
               </button>
             </SectionHeading>
             {adding && <AddTask onClose={() => setAdding(false)} />}
+            {lastRemovedTask && (
+              <div className="task-removal-notice">
+                <p role="status">Removed “{lastRemovedTask.title}”.</p>
+                <button
+                  type="button"
+                  className="undo-task-button"
+                  onClick={undoRemoveTask}
+                >
+                  <Undo2 size={15} aria-hidden="true" /> Undo
+                </button>
+              </div>
+            )}
             <div className="plan-list">
               {todayTasks.length === 0 && (
                 <div className="empty-state">
@@ -231,6 +255,15 @@ export function Overview() {
                             : "Start session"}
                         {task.status !== "Completed" && <Play size={12} />}
                       </button>
+                      <button
+                        type="button"
+                        className="remove-task-button"
+                        aria-label={`Remove ${task.title}`}
+                        disabled={!ready}
+                        onClick={() => removeTask(task.id)}
+                      >
+                        <Trash2 size={14} aria-hidden="true" /> Remove
+                      </button>
                     </div>
                   </article>
                 );
@@ -269,7 +302,10 @@ export function Overview() {
   );
 }
 export function AddTask({ onClose }: { onClose: () => void }) {
-  const { addTask } = useStudy();
+  const { addTask, ready, state } = useStudy();
+  const [subjectId, setSubjectId] = useState(
+    state.recentSubjectIds[0] ?? "programming",
+  );
   return (
     <form
       className="add-task-form"
@@ -278,7 +314,7 @@ export function AddTask({ onClose }: { onClose: () => void }) {
         const data = new FormData(e.currentTarget);
         addTask({
           title: String(data.get("title")).trim(),
-          subjectId: String(data.get("subject")) as import("@/types").SubjectId,
+          subjectId,
           minutes: Number(data.get("minutes")),
           priority: String(
             data.get("priority"),
@@ -300,16 +336,7 @@ export function AddTask({ onClose }: { onClose: () => void }) {
         />
       </label>
       <div className="form-grid">
-        <label>
-          Subject
-          <select name="subject">
-            {subjects.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        <SubjectSelector value={subjectId} onChange={setSubjectId} />
         <label>
           Minutes
           <input
@@ -334,7 +361,7 @@ export function AddTask({ onClose }: { onClose: () => void }) {
         <button type="button" className="button secondary" onClick={onClose}>
           Cancel
         </button>
-        <button className="button primary" type="submit">
+        <button className="button primary" type="submit" disabled={!ready}>
           Add to today
         </button>
       </div>

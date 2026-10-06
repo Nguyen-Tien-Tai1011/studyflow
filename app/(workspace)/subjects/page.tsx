@@ -5,7 +5,7 @@ export default function SubjectsPage() {
       <div className="route-heading">
         <span className="eyebrow">YOUR PERSONAL CURRICULUM</span>
         <h1>Make room for curiosity.</h1>
-        <p>Four subjects. One place to keep your learning moving.</p>
+        <p>Your subjects. One place to keep your learning moving.</p>
       </div>
       <Subjects />
     </>

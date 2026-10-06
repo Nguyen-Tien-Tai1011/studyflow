@@ -7,12 +7,11 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react";
-import { subjects } from "@/data/mockData";
 import { useStudy } from "./study-provider";
 import type { SubjectId } from "@/types";
 import { modes } from "./use-focus-timer";
 export function StudyTimer() {
-  const { focus } = useStudy();
+  const { focus, activeSubjects: subjects } = useStudy();
   const {
     mode,
     remaining,

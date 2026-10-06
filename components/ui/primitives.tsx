@@ -4,6 +4,7 @@ import {
   Database,
   FunctionSquare,
   Network,
+  type LucideIcon,
 } from "lucide-react";
 import type { SubjectId } from "@/types";
 export function Logo() {
@@ -23,14 +24,15 @@ export function SubjectIcon({
   id: SubjectId;
   size?: number;
 }) {
-  const Icon = {
+  const icons: Record<string, LucideIcon> = {
     programming: Code2,
     database: Database,
     calculus: FunctionSquare,
     dsa: Network,
-  }[id];
+  };
+  const Icon = icons[id] ?? BookOpen;
   return (
-    <span className={`subject-icon ${id}`}>
+    <span className={`subject-icon ${icons[id] ? id : "custom"}`}>
       <Icon size={size} />
     </span>
   );

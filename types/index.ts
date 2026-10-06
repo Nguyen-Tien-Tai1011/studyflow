@@ -1,4 +1,4 @@
-export type SubjectId = "programming" | "database" | "calculus" | "dsa";
+export type SubjectId = string;
 export interface User {
   id: string;
   name: string;
@@ -8,6 +8,9 @@ export interface Subject {
   id: SubjectId;
   name: string;
   description: string;
+  category: string;
+  isCustom: boolean;
+  createdAt?: string;
   progress: number;
   level: "Beginner" | "Intermediate";
   minutes: number;
@@ -45,6 +48,8 @@ export interface Achievement {
   unlocked: boolean;
 }
 export interface StudyState {
+  subjects: Subject[];
+  recentSubjectIds: SubjectId[];
   tasks: Task[];
   sessions: StudySession[];
   goals: Goal[];
