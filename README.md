@@ -40,7 +40,7 @@ On Windows PowerShell, use `$env:PORT = '3001'` in a separate terminal before `n
 - Dashboard: daily plan, task completion, Add Task, Remove/Undo, four overview metrics, and weekly activity.
 - Add Task subjects: searchable keyboard-accessible selector, 17 suggested categories, specific subject suggestions, five recent subjects, and reusable custom subjects with normalized duplicate detection.
 - Subjects: searchable curriculum cards, lesson progress, recorded study time, and a focus-session entry point.
-- Focus timer: 25-minute Pomodoro, 5/15-minute breaks, pause/resume/reset, early save after a minute, and automatic completed-session recording. The countdown uses a wall-clock deadline and continues across workspace navigation. Reloading starts a fresh timer; completed sessions remain saved.
+- Focus timer: 25-minute Pomodoro, 5/15-minute breaks, and Custom study sessions from 1–180 whole minutes. Choose Custom, enter minutes and Apply before starting; reset before changing an ongoing or paused session's duration. Supports pause/resume/reset, early save after a minute, and automatic completed-session recording using the selected duration. The countdown and applied custom duration continue across workspace navigation. Reloading starts a fresh timer with default settings; completed sessions remain saved.
 - Sessions: searchable history with subject filtering.
 - Progress: weekly chart, subject progress, contextual guidance, and achievements.
 - Goals: editable targets/progress and upcoming tasks.

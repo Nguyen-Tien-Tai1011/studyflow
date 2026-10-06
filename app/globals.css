@@ -793,7 +793,8 @@ p {
   background: #10213d;
   border: 1px solid #263955;
   padding: 4px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-radius: 7px;
   margin-top: 22px;
 }
@@ -810,6 +811,44 @@ p {
   color: #e6eefb;
   background: #2d4261;
   box-shadow: 0 1px 5px #0001;
+}
+.custom-duration {
+  margin-top: 16px;
+  font-size: 12px;
+}
+.custom-duration label {
+  color: #d9e4f5;
+}
+.custom-duration-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 7px;
+}
+.custom-duration input {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #536784;
+  border-radius: 6px;
+  background: #10213d;
+  color: #fff;
+  font: inherit;
+}
+.custom-duration button {
+  padding: 9px 16px;
+  border-radius: 6px;
+  background: #e0edff;
+  color: #172b4b;
+  font-weight: 600;
+}
+.custom-duration p {
+  margin: 7px 0 0;
+  color: #b6c7df;
+  line-height: 1.5;
+}
+.custom-duration :disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 .timer-circle {
   width: 210px;
