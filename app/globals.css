@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @theme {
   --font-sans: "Inter", sans-serif;
 }
@@ -12,6 +13,19 @@
   --green: #16866b;
   --purple: #8260c9;
   --orange: #d78136;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --navy: #a9c9ff;
+  --ink: #e6edf7;
+  --muted: #acbcd2;
+  --border: #36465d;
+  --canvas: #0e1726;
+  --blue: #9fc3ff;
+  --green: #7ed8b6;
+  --purple: #c8adff;
+  --orange: #f0bb80;
 }
 * {
   box-sizing: border-box;
