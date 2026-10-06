@@ -46,6 +46,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Chỉ dùng "use client" khi cần trạng thái hoặc API trình duyệt.
 - Không thêm Server Actions, cookies phía server hoặc API động khi vẫn xuất tĩnh.
 - Khi thêm backend, tách truy cập dữ liệu khỏi component hiển thị.
+- Giao diện dùng ThemeProvider tại layout gốc; khóa studyflow-theme riêng với dữ liệu học.
+- Mặc định Theo hệ thống; dùng data-theme trên html và biến màu trong globals.css.
+- Dùng biến màu có sẵn cho nền/chữ/viền/trạng thái; chỉ thêm màu cố định trong bảng biến.
+- Giữ script khởi tạo theme trong head để áp dụng trước khi vẽ trang; kiểm tra cả SSR và hydration.
+- Khi thêm UI, kiểm tra cả sáng/tối, bàn phím, mobile và cập nhật docs/THEME-QA.md nếu cần.
 
 ## Dữ liệu và bảo mật
 

@@ -46,6 +46,12 @@ On Windows PowerShell, use `$env:PORT = '3001'` in a separate terminal before `n
 - Goals: editable targets/progress and upcoming tasks.
 - Responsive navigation, page search, notification panel, keyboard focus states, reduced-motion support, and empty states.
 
+## Appearance
+
+Use the appearance button in either navigation bar, or open `/settings`, to select **Sáng (Light)**, **Tối (Dark)** or **Theo hệ thống (System)**. System is the default and follows live OS appearance changes. The preference is saved separately under `studyflow-theme`; study data remains under `studyflow-v1`. If storage is blocked, appearance changes still work for the current visit.
+
+The root layout runs a small inline script in `<head>` before page content is painted. `ThemeProvider` synchronizes the controls after hydration and listens for OS changes and cross-tab preference updates. The root layout remains a Server Component; browser APIs are used only in the inline browser script and client provider. Tailwind v4's `dark` variant uses `data-theme` on `<html>`. Global semantic color variables cover both palettes; Focus Session has its own dark surface palette in both modes. See [the visual verification checklist](docs/THEME-QA.md).
+
 ## Data and architecture
 
 `types/index.ts` defines User, Subject, Task, StudySession, Goal, and Achievement entities. Subject IDs are shared across tasks and sessions. `data/mockData.ts` owns the illustrative dataset; `components/dashboard/study-provider.tsx` owns data actions and browser persistence. Replace those actions with a repository/API adapter when adding a backend. Components consume typed data rather than making direct backend calls.
