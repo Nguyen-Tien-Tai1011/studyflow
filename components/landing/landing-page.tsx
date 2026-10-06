@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/ui/primitives";
 import { heroImage, testimonials } from "@/data/marketing";
+import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 export function LandingPage() {
   return (
     <div className="landing">
@@ -23,9 +24,12 @@ export function LandingPage() {
           <a href="#study-tips">Study tips</a>
           <Link href="/">My dashboard</Link>
         </nav>
-        <Link href="/" className="button primary">
-          Start studying
-        </Link>
+        <div className="landing-nav-tools">
+          <ThemeSwitcher />
+          <Link href="/" className="button primary">
+            Start studying
+          </Link>
+        </div>
       </header>
       <main>
         <section className="hero">

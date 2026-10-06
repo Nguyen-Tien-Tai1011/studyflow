@@ -3,6 +3,130 @@
 @theme {
   --font-sans: "Inter", sans-serif;
 }
+
+/* Shared appearance controls, including the independently rendered welcome page. */
+.theme-switcher {
+  position: relative;
+  flex-shrink: 0;
+}
+.theme-popover {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 150;
+  width: 230px;
+  padding: 14px;
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 32px #0003;
+}
+.theme-choices {
+  border: 0;
+  margin: 12px 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.theme-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 14px;
+}
+.theme-choice input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.theme-choice:hover {
+  background: var(--surface-hover);
+}
+.theme-choice:has(input:checked) {
+  background: var(--selection);
+  color: var(--selection-text);
+  border-color: var(--blue);
+}
+.theme-choice:has(input:focus-visible) {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+.theme-choice:has(input:disabled) {
+  cursor: wait;
+  opacity: 0.65;
+}
+.theme-check {
+  margin-left: auto;
+  visibility: hidden;
+}
+.theme-choice:has(input:checked) .theme-check {
+  visibility: visible;
+}
+.theme-settings {
+  max-width: 700px;
+  padding: 28px;
+}
+.theme-settings > p {
+  margin-top: 10px;
+}
+.theme-settings .theme-choices {
+  margin: 24px 0;
+}
+.landing-nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+@media (max-width: 1150px) and (min-width: 761px) {
+  .topbar .mobile-toggle {
+    display: flex;
+  }
+  .topbar .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: auto;
+    padding: 15px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar .main-nav.open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+  .topbar .main-nav a {
+    padding: 12px;
+  }
+}
+@media (max-width: 430px) {
+  .landing-nav {
+    gap: 10px;
+  }
+  .landing-nav-tools {
+    gap: 6px;
+  }
+  .landing-nav-tools .button {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+  .theme-settings {
+    padding: 20px;
+  }
+}
 :root {
   --navy: #172b50;
   --ink: #17243b;
@@ -14,6 +138,10 @@
   --purple: #8260c9;
   --orange: #d78136;
   color-scheme: light;
+  --surface: #fff;
+  --surface-hover: #edf2f9;
+  --selection: #e6efff;
+  --selection-text: #234c88;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -26,6 +154,10 @@
   --green: #7ed8b6;
   --purple: #c8adff;
   --orange: #f0bb80;
+  --surface: #19263a;
+  --surface-hover: #26374f;
+  --selection: #263f62;
+  --selection-text: #c5dcff;
 }
 * {
   box-sizing: border-box;
