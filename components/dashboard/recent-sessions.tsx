@@ -3,11 +3,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { CircleCheck, Play, Search, Timer } from "lucide-react";
 import { useStudy } from "./study-provider";
-import { subjects } from "@/data/mockData";
 import { dateLabel, duration } from "@/utils/format";
 import { SectionHeading, SubjectIcon } from "@/components/ui/primitives";
 export function RecentSessions({ full = false }: { full?: boolean }) {
-  const { state } = useStudy();
+  const { state, activeSubjects: subjects } = useStudy();
   const [query, setQuery] = useState("");
   const [subject, setSubject] = useState("all");
   const rows = state.sessions.filter(

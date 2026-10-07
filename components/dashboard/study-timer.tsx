@@ -7,12 +7,11 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react";
-import { subjects } from "@/data/mockData";
 import { useStudy } from "./study-provider";
 import type { SubjectId } from "@/types";
-import { modes } from "./use-focus-timer";
+import { CUSTOM_MODE, MAX_FOCUS_MINUTES, modes } from "./use-focus-timer";
 export function StudyTimer() {
-  const { focus } = useStudy();
+  const { focus, activeSubjects: subjects } = useStudy();
   const {
     mode,
     remaining,
@@ -20,6 +19,11 @@ export function StudyTimer() {
     subject,
     topic,
     elapsed,
+    duration,
+    customMinutes,
+    isStudyMode,
+    durationLocked,
+    applyCustomMinutes,
     changeMode,
     toggle,
     finish,
@@ -47,11 +51,46 @@ export function StudyTimer() {
           </button>
         ))}
       </div>
+      {mode === CUSTOM_MODE && (
+        <form
+          className="custom-duration"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const minutes = new FormData(event.currentTarget).get("minutes");
+            applyCustomMinutes(Number(minutes));
+          }}
+        >
+          <label htmlFor="focus-minutes">Duration (minutes)</label>
+          <div className="custom-duration-controls">
+            <input
+              key={customMinutes}
+              id="focus-minutes"
+              name="minutes"
+              type="number"
+              min={1}
+              max={MAX_FOCUS_MINUTES}
+              step={1}
+              required
+              defaultValue={customMinutes}
+              disabled={durationLocked}
+              aria-describedby="focus-duration-help"
+            />
+            <button type="submit" disabled={durationLocked}>
+              Apply
+            </button>
+          </div>
+          <p id="focus-duration-help">
+            {durationLocked
+              ? "Reset the timer to change duration."
+              : `Choose 1–${MAX_FOCUS_MINUTES} minutes, then apply.`}
+          </p>
+        </form>
+      )}
       <div
         className="timer-circle"
         style={
           {
-            "--timer-progress": `${(remaining / modes[mode].seconds) * 360}deg`,
+            "--timer-progress": `${(remaining / duration) * 360}deg`,
           } as React.CSSProperties
         }
       >
@@ -113,7 +152,7 @@ export function StudyTimer() {
           )}
           {running
             ? "Pause session"
-            : remaining < modes[mode].seconds && remaining > 0
+            : remaining < duration && remaining > 0
               ? "Resume session"
               : "Start session"}
         </button>
@@ -125,7 +164,7 @@ export function StudyTimer() {
           <RotateCcw size={18} />
         </button>
       </div>
-      {mode === 0 && elapsed >= 60 && remaining > 0 && (
+      {isStudyMode && elapsed >= 60 && remaining > 0 && (
         <button className="finish-session" onClick={finish}>
           <Check size={15} /> Finish & save {Math.floor(elapsed / 60)} min
         </button>

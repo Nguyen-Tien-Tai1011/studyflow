@@ -15,15 +15,22 @@ import {
   ChevronDown,
   Sparkles,
   HelpCircle,
+  Settings,
 } from "lucide-react";
+import { ThemeSwitcher } from "@/components/theme/theme-switcher";
 import { Logo } from "@/components/ui/primitives";
 import { StudyProvider } from "@/components/dashboard/study-provider";
+import {
+  ExportStudyData,
+  StorageNotice,
+} from "@/components/dashboard/storage-controls";
 const nav = [
   { label: "Dashboard", href: "/", icon: LayoutDashboard },
   { label: "My Subjects", href: "/subjects", icon: BookOpen },
   { label: "Study Sessions", href: "/sessions", icon: Timer },
   { label: "Progress", href: "/progress", icon: ChartNoAxesCombined },
   { label: "Goals", href: "/goals", icon: Target },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 export function AppShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -56,6 +63,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
         <div className="nav-tools">
+          <ThemeSwitcher />
           <button
             className="icon-button"
             aria-label="Search StudyFlow"
@@ -149,6 +157,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Link href="/welcome" onClick={() => setPanel("")}>
                   About StudyFlow
                 </Link>
+                <ExportStudyData />
               </>
             ) : (
               <>
@@ -168,6 +177,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
       </header>
       <main id="main" className="app-main">
+        <StorageNotice />
         {children}
       </main>
       <footer className="app-footer">

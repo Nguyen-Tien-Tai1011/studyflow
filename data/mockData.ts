@@ -15,6 +15,8 @@ export const subjects: Subject[] = [
   {
     id: "programming",
     name: "Programming Fundamentals",
+    category: "Programming & Technology",
+    isCustom: false,
     description: "C Programming & Problem Solving",
     progress: 72,
     level: "Beginner",
@@ -26,6 +28,8 @@ export const subjects: Subject[] = [
   {
     id: "database",
     name: "Database Systems",
+    category: "Programming & Technology",
+    isCustom: false,
     description: "SQL & Relational Databases",
     progress: 58,
     level: "Intermediate",
@@ -37,6 +41,8 @@ export const subjects: Subject[] = [
   {
     id: "calculus",
     name: "Calculus",
+    category: "Mathematics",
+    isCustom: false,
     description: "Limits, Derivatives & Integrals",
     progress: 41,
     level: "Beginner",
@@ -48,6 +54,8 @@ export const subjects: Subject[] = [
   {
     id: "dsa",
     name: "Data Structures & Algorithms",
+    category: "Programming & Technology",
+    isCustom: false,
     description: "Arrays, Linked Lists, Stacks & Queues",
     progress: 25,
     level: "Intermediate",

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Target, Pencil, Check, CalendarDays, Plus } from "lucide-react";
 import { useStudy } from "./study-provider";
 import { Progress, SectionHeading } from "@/components/ui/primitives";
-import { subjects } from "@/data/mockData";
 import { dateLabel } from "@/utils/format";
 import { AddTask } from "./overview";
 export function StudyGoals({ editable = false }: { editable?: boolean }) {
@@ -107,7 +106,7 @@ export function StudyGoals({ editable = false }: { editable?: boolean }) {
   );
 }
 export function UpcomingTasks({ expanded = false }: { expanded?: boolean }) {
-  const { state, toggleTask } = useStudy();
+  const { state, subjects, toggleTask } = useStudy();
   const [adding, setAdding] = useState(false);
   const tasks = state.tasks.filter((t) => t.due !== "today");
   return (

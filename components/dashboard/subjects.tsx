@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { BookOpen, Clock3, Search, Play } from "lucide-react";
 import { useState } from "react";
-import { subjects, initialSessions } from "@/data/mockData";
+import { initialSessions } from "@/data/mockData";
 import { duration } from "@/utils/format";
 import {
   Progress,
@@ -13,7 +13,7 @@ import { useStudy } from "./study-provider";
 import { StudyTimer } from "./study-timer";
 export function Subjects({ preview = false }: { preview?: boolean }) {
   const [query, setQuery] = useState("");
-  const { state, selectStudy } = useStudy();
+  const { state, activeSubjects: subjects, selectStudy } = useStudy();
   const filtered = subjects.filter((s) =>
     `${s.name} ${s.description}`.toLowerCase().includes(query.toLowerCase()),
   );
@@ -53,7 +53,9 @@ export function Subjects({ preview = false }: { preview?: boolean }) {
               <article className="subject-card" key={subject.id}>
                 <div className="subject-card-top">
                   <SubjectIcon id={subject.id} />
-                  <span className="badge neutral">{subject.level}</span>
+                  <span className="badge neutral">
+                    {subject.totalLessons ? subject.level : "Self-directed"}
+                  </span>
                 </div>
                 <h3>{subject.name}</h3>
                 <p>{subject.description}</p>
@@ -73,7 +75,9 @@ export function Subjects({ preview = false }: { preview?: boolean }) {
                   </span>
                   <span>
                     <BookOpen size={13} />
-                    {subject.lessons}/{subject.totalLessons} lessons
+                    {subject.totalLessons
+                      ? `${subject.lessons}/${subject.totalLessons} lessons`
+                      : "Independent study"}
                   </span>
                 </div>
                 {preview ? (
@@ -92,7 +96,9 @@ export function Subjects({ preview = false }: { preview?: boolean }) {
                             ? "SQL JOIN Exercises"
                             : subject.id === "calculus"
                               ? "Review derivatives"
-                              : "Stacks & queues",
+                              : subject.id === "dsa"
+                                ? "Stacks & queues"
+                                : subject.name,
                       )
                     }
                   >
